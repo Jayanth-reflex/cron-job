@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ GitHub Streak Automation
+# ⚡ GitHub Streak Automation #
 
 <img src="https://img.shields.io/badge/Automation-GitHub%20Actions-blue?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions">
 <img src="https://img.shields.io/badge/Cron%20Jobs-Scheduled-green?style=for-the-badge&logo=clock&logoColor=white" alt="Cron Jobs">
