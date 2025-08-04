@@ -2,8 +2,9 @@ name: Auto Commit
 
 on:
   schedule:
-    # Runs daily at midnight UTC
-    - cron: '0 0 * * *'
+    # Runs 4 times daily after 9 PM IST (3:30 PM UTC)
+    # 4 PM UTC (7:30 PM IST), 8 PM UTC (11:30 PM IST), 12 AM UTC (5:30 AM IST), 4 AM UTC (9:30 AM IST)
+    - cron: '0 16,20,0,4 * * *'
   # Allow manual trigger
   workflow_dispatch:
 
