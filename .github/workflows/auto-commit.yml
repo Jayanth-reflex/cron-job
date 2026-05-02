@@ -1,5 +1,4 @@
 name: Auto Commit
-
 on:
   schedule:
     # Runs 4 times daily after 9 PM IST (3:30 PM UTC)
@@ -14,24 +13,37 @@ permissions:
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    
+
     - name: Configure Git
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        echo "[LOG] Configuring Git for automated commits..."
+        echo "[LOG] Setting user.email: 41898282+github-actions[bot]@users.noreply.github.com"
+        echo "[LOG] Setting user.name: github-actions[bot]"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-    
+        echo "[LOG] Verifying git config..."
+        git config --local user.email
+        git config --local user.name
+
     - name: Update daily.txt with timestamp
       run: |
         echo "$(date '+%Y-%m-%d %H:%M:%S UTC')" > daily.txt
-    
+
     - name: Commit and push changes
       run: |
         git add daily.txt
-        git diff --cached --quiet || git commit -m "Automated commit on $(date '+%Y-%m-%d %H:%M:%S UTC')"
-        git push
+        echo "[LOG] Checking for changes..."
+        if git diff --cached --quiet; then
+          echo "[LOG] No changes detected, skipping commit."
+        else
+          git commit -m "Automated commit on $(date '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "[LOG] Commit successful, pushing to remote..."
+          git push
+          echo "[LOG] Push complete."
+        fi
